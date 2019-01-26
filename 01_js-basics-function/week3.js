@@ -15,18 +15,18 @@ var tweet = {
 
 console.log({tweet});
 
-likes = tweet.getLikes()
+var likes = tweet.getLikes()
 console.log({likes})
 
-likes = tweet.setLikes(666).getLikes()
+var likes = tweet.setLikes(666).getLikes()
 console.log({likes})
 
 
 /**
  * Декларация и конфигурирование свойств объекта
  */
-console.warn('Декларация и конфигурирование свойств объекта')
-tweet2 = {
+console.warn('Декларация и конфигурирование свойств объекта');
+var tweet2 = {
   toString: function () {
     return 'Хэй!'
   },
@@ -34,4 +34,40 @@ tweet2 = {
 
 // Ключи перечисляемых свойств
 console.log(Object.keys(tweet2)); // ['toString']
-// test comment
+
+var emptyObject = {};
+console.log(Object.keys(tweet2)); // []
+
+// Object.definePropery
+// writable - редактируемое,
+// enumerable - перечислимое,
+// configurable - удалимое,
+// Все по умолчанию: false
+var tweet3 = {};
+Object.defineProperty(tweet3, 'text', {
+  value:  'Hey',
+  writable: false,
+});
+
+
+const tweet3Descriptor = Object.getOwnPropertyDescriptor(tweet3, 'text');
+console.log({tweet3Descriptor});
+// tweet3Descriptor: {
+//   configurable: false,
+//   enumerable: false,
+//   value: "Hey",
+//   writable: false,
+// }
+// Пробуем изменить
+tweet3.text = 'New text';
+console.log({tweet3}); // { value: "Hey", ... }
+
+// "configurable"
+Object.defineProperty(tweet3, 'motto', {
+  value:  'Go dance!',
+  configurable: false,
+});
+
+// Пробуем удалить
+console.log(delete tweet3.motto); // false
+console.log(tweet3);
