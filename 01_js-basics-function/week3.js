@@ -34,3 +34,4 @@ tweet2 = {
 
 // Ключи перечисляемых свойств
 console.log(Object.keys(tweet2)); // ['toString']
+// test comment
