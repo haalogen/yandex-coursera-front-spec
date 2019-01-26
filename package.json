@@ -1,0 +1,24 @@
+{
+  "name": "yandex-coursera-front-spec",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haalogen/yandex-coursera-front-spec.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/haalogen/yandex-coursera-front-spec/issues"
+  },
+  "homepage": "https://github.com/haalogen/yandex-coursera-front-spec#readme",
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  },
+  "dependencies": {}
+}
