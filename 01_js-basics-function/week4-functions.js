@@ -17,12 +17,12 @@ console.log(min(13)) // undefined
 /**
  * Массиво-подобный объект arguments
  */
-console.warn('Массиво-подобный объект arguments') 
+console.warn('Массиво-подобный объект arguments')
 
 function sum2() {
   // (!) Приводим arguments к массиву (делаем копию в виде массива)
   var args = [].slice.call(arguments)
-  // (!) Если в reduce(cb, initValue) не передать initValue, то в качестве 
+  // (!) Если в reduce(cb, initValue) не передать initValue, то в качестве
   // initValue будет взят args[0], итерации начнутся с args[1]
   return args.reduce(function (acc, item) {
     return acc + item;
@@ -33,7 +33,7 @@ function sum2() {
 /**
  * Объявление функции
  */
-console.warn('Объявление функции') 
+console.warn('Объявление функции')
 
 // Function declaration
 console.log(add(2, 3)) // 5
@@ -66,7 +66,7 @@ var add3 = new Function('b', 'b', 'return a + b')
 /**
  * Всплытие
  */
-console.warn('Всплытие') 
+console.warn('Всплытие')
 
 // Выполнение кода:
 // 1. Инициализация
@@ -90,7 +90,7 @@ greet(); // Счетчик ссылок { text: 0 }
 
 
 function makeCounter() {
-  var count = 0 
+  var count = 0
   return function() {
     return count++;
   }
