@@ -17,6 +17,18 @@
   color: red;
 }
 
+/* Links with "insensitive" anywhere in the URL,
+   regardless of capitalization */
+a[href*="insensitive" i] {
+  color: cyan;
+}
+
+/* Links with "cAsE" anywhere in the URL,
+with matching capitalization */
+a[href*="cAsE" s] {
+  color: pink;
+}
+
 /* Содержит в начале */
 [href^='https://'] {
   color: red;
@@ -36,6 +48,7 @@ a:link {}
 
 a:active {}
 a:focus {}
+form:focus-within {} /* Фокус на элементе или на любом его потомке */
 a:visited {}
 
 :enabled {} /* Доступен для взаимодействия */
@@ -94,4 +107,27 @@ p:nth-of-type(4n) /* Каждый четвертый элемент p */
   font-weight: bold;
   content: '>>';
 }
-:before { content: '<<' };
+::before { content: '<<' };
+
+/**
+ * Отношения - Combinators
+ */
+
+div div {} /* Потомок */
+div >> div {} /* Потомок. Планируется в CSS Selectors Level 4 */
+
+div > div {} /* Сын */
+
+div + div {} /* Брат (следующий по списку) */
+div ~ div {} /* Братья (все следующие) */
+
+/**
+ * Отрицание
+ */
+li:not(:first-child)
+li:first-child ~ li /* Эквивалентный селектор */
+
+/* Elements that are not <div> or <span> elements */
+body :not(div):not(span) {
+  font-weight: bold;
+}
