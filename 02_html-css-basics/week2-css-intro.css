@@ -1,0 +1,97 @@
+/**
+ * Селекторы атрибутов
+ */
+
+/* Наличие атрибута */
+[href] {
+  color: red;
+}
+
+/* href === '#' */
+[href='#'] {
+  color: red;
+}
+
+/* href содержит '#' */
+[href*='#'] {
+  color: red;
+}
+
+/* Содержит в начале */
+[href^='https://'] {
+  color: red;
+}
+
+/* Содержит в конце */
+[href$='ya.ru'] {
+  color: red;
+}
+
+/**
+ * Динамические Псевдоклассы
+ */
+
+/* Все ссылки */
+a:link {}
+
+a:active {}
+a:focus {}
+a:visited {}
+
+:enabled {} /* Доступен для взаимодействия */
+:disabled {} /* Недоступен */
+
+:checked {} /* Есть атрибут checked */
+:indeterminate {} /* Выбраны не все пункты вложенного списка, делается через JS */
+
+:read-only {} /* Есть атрибут readonly */
+:valid {}
+
+
+/**
+ * Структурные Псевдоклассы -- в зависимости от положения в структуре HTML-документа
+ */
+
+/* Корневой элемент */
+/* In HTML, :root represents the <html> element and is identical
+to the selector html, except that its specificity is higher. */
+:root {}
+
+:first-child {};
+:last-child {};
+
+:nth-child; /* С начала */
+:nth-last-child; /* С конца */
+/* n = 0 ... Infinity */
+:nth-child(2n+1); /* Нечетные дети */
+
+/* Предварительно сгруппировав по типу */
+p:nth-of-type(4n) /* Каждый четвертый элемент p */
+:nth-last-of-type(-n+4)
+
+/* Уникальные дети: an element without any siblings. */
+:only-child;
+:only-of-type;
+
+:empty /* Элемент не содердит никакого контента = пустой */
+
+
+/**
+ * Псевдоэлементы -- их не видно в структуре документа -- несуществующие на странице
+ * элементы.
+ */
+
+::first-letter; /* Первая буква */
+::first-line /* Первая строка */
+
+/**
+ * <div>::before Hey! Ho! ::after</div>
+ */
+/* Пример */
+::before,
+::after {
+  color: red;
+  font-weight: bold;
+  content: '>>';
+}
+:before { content: '<<' };
