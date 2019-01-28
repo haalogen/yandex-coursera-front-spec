@@ -74,6 +74,10 @@ to the selector html, except that its specificity is higher. */
 :last-child {};
 
 :nth-child; /* С начала */
+:nth-child(-n+3) /* the first three elements: [=-0+3, -1+3, -2+3] */
+/* the 8th through the 15th <p> elements of a group of siblings */
+p:nth-child(n+8):nth-child(-n+15)
+
 :nth-last-child; /* С конца */
 /* n = 0 ... Infinity */
 :nth-child(2n+1); /* Нечетные дети */
