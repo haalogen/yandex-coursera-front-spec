@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>02 HTML & CSS Basics</title>
+</head>
+<body>
+
+<h1>02 HTML & CSS Basics</h1>
+<p>Look at the stylesheet</p>
+
+<audio controls autoplay loop>
+  <source src="audio/music.ogg" type="audio/ogg">
+  <source src="audio/music.mp3" type="audio/mpeg">
+  Элемент audio не поддерживается вашим браузером.
+  <a href="audio/music.mp3">Скачайте музыку</a>
+</audio>
+
+<video width="500" height="400" controls>
+
+  <!-- Текстовая дорожка для медийных эл-тов audio, video -->
+  <track kind="subtitles" src="video/jane.en.vtt" srclang="en"
+    label="English" default
+  >
+  <source src="audio/music.ogg" type="audio/ogg">
+  <source src="audio/music.mp3" type="audio/mpeg">
+  Элемент audio не поддерживается вашим браузером.
+</video>
+
+<br/>
+
+<select name="hero">
+  <option>Выберите героя</option>
+  <option value="Чебурашка">Чебурашка</option>
+  <option value="Крокодил Гена">Крокодил Гена</option>
+</select>
+
+<select multiple size="3" name="hero">
+  <option>Выберите героя</option>
+  <option value="Чебурашка">Чебурашка</option>
+  <option value="Крокодил Гена">Крокодил Гена</option>
+</select>
+
+<!-- По умолчанию: method="get" -->
+<form method="post">
+  <input value="Артем" name="firstName">
+
+  <!-- По умолчанию: type="submit" -->
+  <button>Отправить</button>
+</form>
+
+</body>
+</html>
