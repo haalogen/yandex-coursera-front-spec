@@ -229,3 +229,77 @@ Student8.prototype.sleep = function () {};
 Student8.prototype.constructor = Student8;
 
 var billy8 = new Student8('Billy');
+
+
+/**
+ * Инспектирование связей между объектами, конструкторами и прототипами
+ */
+console.warn('Инспектирование связей между объектами, конструкторами и прототипами')
+
+// Object.getPrototypeOf(o: Object): protoObj: Object
+var student = {
+  name: 'Billy',
+  // [[Prototype]]: <person>
+}
+var person = {
+  type: 'human',
+  getName: function () {}
+}
+Object.getPrototypeOf(student) === person; // true
+
+// (!)
+// Object.getPrototypeOf('foo'); // TypeError: "foo" is not an object (ES5 code)
+Object.getPrototypeOf('foo'); // coerced to an Object: String.prototype (ES2015 code)
+
+
+// Object.prototype.isPrototypeOf(o: Object)
+// TRUE - Для всех прототипов в цепочке!
+// Прототип == хранилище
+function Person8() {
+  this.type = 'human';
+}
+Person8.prototype.getName = function () {
+  return this.name;
+};
+function Student8(name) {
+  this.name = name;
+}
+Student8.prototype = Object.create(Person8.prototype);
+Student8.prototype.sleep = function () {};
+Student8.prototype.constructor = Student8;
+var billy8 = new Student8('Billy');
+
+console.log(Student8.prototype.isPrototypeOf(billy8)) // true
+console.log(Person8.prototype.isPrototypeOf(billy8)) // true
+console.log(Object.prototype.isPrototypeOf(billy8)) // true
+
+
+/**
+ * оператор "instanceof"
+ */
+// Он позволяет ответить на вопрос:
+// «Является ли объект Студентом\Личностью\Объектом?»
+console.warn('оператор "instanceof"')
+
+console.log(billy8 instanceof Student8) // true
+console.log(billy8 instanceof Person8) // true
+console.log(billy8 instanceof Object) // true
+// console.log(billy8 instanceof null) // TypeError: Right-hand side of 'instanceof' is not an object
+
+// Как работает "instanceof":
+billy8 instanceof Person8;
+console.log(billy8.__proto__ === Person8.prototype);
+// false -> Может, там null?
+console.log(billy8.__proto__ === null);
+// false -> Идём дальше по цепочке
+console.log(billy8.__proto__.__proto__ === Person8.prototype);
+// true -> Возвращаем true
+
+
+// Объект с самой короткой цепочкой прототипов: foreverAlone -> null
+var foreverAlone = Object.create(null);
+foreverAlone instanceof Object; // false
+Object.create(null).__proto__ === Object.prototype;
+// false -> Может, там null?
+Object.create(null).__proto__ === null;
+// true -> Так и есть, возращаем false!
