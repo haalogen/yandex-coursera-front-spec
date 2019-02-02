@@ -279,6 +279,7 @@ console.log(Object.prototype.isPrototypeOf(billy8)) // true
  */
 // Он позволяет ответить на вопрос:
 // «Является ли объект Студентом\Личностью\Объектом?»
+// (!) `instanceof` lies. Ducktype instead.
 console.warn('оператор "instanceof"')
 
 console.log(billy8 instanceof Student8) // true
@@ -303,3 +304,103 @@ Object.create(null).__proto__ === Object.prototype;
 // false -> Может, там null?
 Object.create(null).__proto__ === null;
 // true -> Так и есть, возращаем false!
+
+
+
+/**
+ * Решение проблемы дублирования кода в конструкторах
+ */
+console.warn('Решение проблемы дублирования кода в конструкторах')
+
+function Person9(name) {
+  this.type = 'human';
+  this.name = name;
+}
+function Student9(name) {
+  // Вызываем конструктор Person9 внутри конструктора Student9
+  // this ссылается на новый объект студента
+  Person9.call(this, name);
+}
+var billy9 = new Student9('Billy');
+console.info(billy9.name); // Billy
+
+
+
+/**
+ * Вызов затеняемого метода в затеняющем
+ */
+console.warn('Вызов затеняемого метода в затеняющем')
+
+function Person10(name) {
+  this.type = 'human';
+  this.name = name;
+}
+Person10.prototype.getName = function () {
+  return this.name;
+}
+
+function Student10(name) {
+  Person10.call(this, name);
+}
+Student10.prototype = Object.create(Person10.prototype);
+Student10.prototype.getName = function () {
+  // Вызываем затеняемый метод из цеп-ки прототипов от лица объекта типа Student10
+  return 'Student10 ' + Person10.prototype.getName.call(this);
+};
+
+var billy10 = new Student10('Billy');
+console.info(billy10); // Billy
+
+
+
+/**
+ * Сравнение трёх подходов к конструированию объектов: функции-конструкторы, метод create, «Классы»
+ */
+console.warn('Сравнение трёх подходов к конструированию объектов: функции-конструкторы, метод create, «Классы»')
+
+
+// Object.create(o: Object, properties?: any)
+var personProto = {};
+personProto.getName = function () { return this.name; }
+
+var studentProto = Object.create(personProto);
+studentProto.sleep = function () {};
+// Хелпер-фабрика объектов
+studentProto.create = function (name) {
+  return Object.create(this, {
+    name: { value: name }
+  });
+}
+
+var billy = studentProto.create('Billy');
+
+
+// «Классы» -- новая синтаксическая конструкция
+// Классы - это не более, чем обычные функции-конструкторы.
+class Student11 {
+  constructor(name) {
+    this.name = name;
+  }
+  getName() {
+    return this.name;
+  }
+}
+console.log(Student11.prototype)
+
+var billy11 = new Student11('Billy');
+billy11.getName(); // Billy
+
+console.log(Student11.prototype.isPrototypeOf(billy11)); // true
+console.log(typeof Student11); // function
+
+
+// Concatenative inheritance | Object.assign
+var skydiving = require('skydiving');
+var ninja = require('ninja');
+var mouse = require('mouse');
+var wingsuit = require('wingsuit');
+
+// The amount of awesome in this next bit might be too much
+// for seniors with heart conditions or young children.
+var skydivingNinjaMouseWithWingsuit = Object.assign({}, // create a new object
+  skydiving, ninja, mouse, wingsuit); // copy all the awesome to it.
